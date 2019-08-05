@@ -1,0 +1,157 @@
+// 通过$符号去声明一个变量
+$default-border-color: #e6e6e6;
+$default-background-color: #edf5fe;
+$default-background-color-hover: #449eff;
+$black-color: #000000;
+$white-color: #ffffff;
+
+// 继承 ----下面代码会正常输出到生成的CSS文件，因为它被其接下来的代码所继承。
+%border-common {
+  border: 1px solid $default-border-color;
+}
+
+.message {
+  @extend %border-common;
+}
+
+@mixin border-color($color) {
+  border: 1px solid $color;
+}
+
+// 混合 ----
+@mixin border-radius($radius) {
+  border-radius: $radius;
+  -ms-border-radius: $radius;
+  -moz-border-radius: $radius;
+  -webkit-border-radius: $radius;
+}
+
+.box {
+  @include border-radius(10px);
+}
+
+// 操作符 ----
+article[role="main"] {
+  float: left;
+  width: 600px / 960px * 100%;
+}
+
+%vertical-center {
+  /*flex 布局*/
+  display: flex;
+  /*实现垂直居中*/
+  align-items: center;
+  /*实现水平居中*/
+  justify-content: center;
+}
+
+.div-avatar {
+  padding: 5px;
+  display: flex;
+  margin-top: 6px;
+  width: 100px;
+  background-color: $default-background-color;
+  @include border-color($default-background-color-hover);
+  @include border-radius(30px);
+
+  & .vertical-center {
+    @extend %vertical-center;
+    margin-top: 5px;
+    color: $default-background-color-hover;
+    margin-left: 5px
+  }
+
+  & i {
+    color: $default-background-color-hover;
+    margin-left: 8px;
+    margin-top: 8px;
+  }
+}
+
+.avatar {
+  width: 30px;
+  height: 30px;
+  @include border-radius(15px);
+}
+
+.aside-menu {
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  width: 196px;
+  height: 60px;
+  position: relative;
+  border: 1px solid #e6e6e6;
+  @extend %vertical-center;
+}
+
+.aside-menu-item-main {
+  display: inherit;
+  text-align: center;
+  font-size: 1.1em;
+}
+.aside-menu-item-plot {
+  display: inherit;
+  text-align: center;
+  font-size: 0.7em;
+  color: #aaa;
+}
+
+.aside-menu .el-icon-edit {
+  position: absolute;
+  right: 45px;
+  top: 25px;
+  display: none;
+}
+
+.aside-menu .el-icon-delete {
+  position: absolute;
+  right: 20px;
+  top: 25px;
+  display: none;
+}
+
+.hover-show-i-child:hover > i {
+  display: block;
+}
+
+.is-selected-color {
+  background-color: $default-background-color;
+}
+
+.page-right-wrap {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 900;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.page-right-part {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  overflow: auto;
+  background-color: #fff;
+}
+
+.lightBox { /*需要引起用户注意的元素*/
+  position: absolute;
+  z-index: 1000;
+}
+
+.page-right-main {
+  float: left;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  -webkit-filter: blur(5px);
+  -moz-filter: blur(5px);
+  -o-filter: blur(5px);
+  -ms-filter: blur(5px);
+  filter: blur(5px);
+}

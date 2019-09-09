@@ -33,6 +33,8 @@
   import pageRight from '../common/self-pageright';
   import editForm from './from.vue';
   import {randomColor} from '@/utils/util';
+  import {addOrEditLocalStorage, getLocalStorage} from '@/utils/localstorageutil';
+
   export default {
     name: 'login',
     components: {
@@ -51,8 +53,8 @@
         radio: '',
         user: {
           rememberMe: false,
-          userName: 'admin',
-          userPassword: '123456'
+          userName: '',
+          userPassword: ''
         },
         rules: {
           userName: [
@@ -67,16 +69,23 @@
       }
     },
     mounted () {
-      console.info();
+      this.setUserDate();
     },
     methods: {
+      setUserDate() {
+        let user = getLocalStorage('user');
+        if (user) {
+          this.user = user;
+        }
+      },
       handleLogin(user) {
         this.$refs[user].validate(valid => {
           if (valid) {
             this.loading = true;
             this.$store.dispatch('Login', this.user).then(data => {
               if (200 === data.status || '200' === data.status) {
-                this.$router.push({path: '/'})
+                this.$router.push({path: '/'});
+                addOrEditLocalStorage('user', this.user);
               } else {
                 this.$message.error("账号/密码错误");
                 this.loading = false;

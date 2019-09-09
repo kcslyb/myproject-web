@@ -20,7 +20,8 @@
 </template>
 
 <script>
-  import {UserDepartment} from '@/api/resources'
+  import {UserDepartment} from '@/api/resources';
+
   export default {
     name: 'departmentform',
     props: {
@@ -90,7 +91,7 @@
               })
             }
           } else {
-            console.log('error submit!!');
+            // console.log('error submit!!');
           }
         })
       },

@@ -1,9 +1,16 @@
 <template>
   <div class="page-right-wrap" v-show="show" @click="rightClose">
     <div class="page-right-part lightBox" @click.stop="" ref="pageRightPart" :style="style">
-      <div align="right">
-        <el-button icon="el-icon-close" size="mini" @click.stop.prevent="rightClose" circle></el-button>
-      </div>
+      <el-row :gutter="23">
+        <el-col :span="22">
+          <div style="text-align: center; margin-bottom: 10px">
+            <span style="font-size: 20px; font-family: 'Songti TC'" type="text">{{title}}</span>
+          </div>
+        </el-col>
+        <el-col :span="2">
+          <el-button @click.stop.prevent="rightClose" circle icon="el-icon-close" size="mini"></el-button>
+        </el-col>
+      </el-row>
       <div class="page-right-main">
         <slot></slot>
       </div>
@@ -14,16 +21,22 @@
   export default {
     name: 'CustomDrawer',
     props: {
+      title: {
+        type: String,
+        default: ''
+      },
       show: {
         type: Boolean,
         default: false
       },
       css: {
-        type: Object
+        type: Object,
+        default: () => {
+        }
       },
       defaultWith: {
         type: Boolean,
-        default: false
+        default: true
       }
     },
     data() {
@@ -51,6 +64,7 @@
         this.$emit('update:show', false);
         this.$emit('right-close');
         this.$emit('rightClose');
+        this.$emit('close');
       }
     }
   };

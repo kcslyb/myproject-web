@@ -25,7 +25,7 @@ module.exports = {
     host: '127.0.0.1',
     https: false,
     disableHostCheck: true,
-    open: true, //配置自动启动浏览器
+    open: true,
     hotOnly: true, // 热更新
     proxy: process.env.NODE_ENV === 'production' ? { //配置自动启动浏览器
       "/api/*": {
@@ -42,7 +42,7 @@ module.exports = {
         pathRewrite: {
           '^/api': '/'  //删除基本路径
         },
-      },
+      }
     }
   },
 
@@ -99,5 +99,8 @@ module.exports = {
     extract: true,
     // 开启 CSS source maps，一般不建议开启
     sourceMap: false,
+  },
+  node: {
+    fs: 'empty'
   }
 };

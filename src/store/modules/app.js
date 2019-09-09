@@ -1,4 +1,4 @@
-import Cookies from 'js-cookie'
+import Cookies from 'js-cookie';
 
 const app = {
   state: {
@@ -10,11 +10,18 @@ const app = {
     },
     visitedViews: [],
     dictGroup: {},
-    searchDto: {}
+    searchDto: {},
+    logger: {
+      logRequestDescribe: '',
+      logRequestPageName: ''
+    }
   },
   mutations: {
+    SET_LOGGER: (state, date) => {
+      state.logger = Object.assign({}, state.logger, date);
+    },
     SET_FILE_UPLOAD_PATH: (state, date) => {
-      state.fileUploadPath == date;
+      state.fileUploadPath = date;
     },
     SET_SEARCH_DTO: (state, date) => {
       state.searchDto = date;

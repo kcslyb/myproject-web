@@ -86,10 +86,10 @@
 </template>
 
 <script>
-import {Order, Desk, Address} from '../../api/resources';
-import orderAddress from './address/address';
+  import {Address, Desk, Order} from '../../api/resources';
+  import orderAddress from './address/address';
 
-export default {
+  export default {
   name: 'selfTag',
   components: {orderAddress},
   props: {
@@ -135,7 +135,6 @@ export default {
     },
     getAddress () {
       Address.queryByUserId({userId: this.$store.state.user.userId}).then(res=> {
-        console.info(res);
         this.addressList = res;
       }).catch(error => {})
     },

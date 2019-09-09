@@ -9,6 +9,7 @@ import CustomPagination from './self-pagination.vue';
 import CustomPermRole from './self-roletagperm.vue';
 import CustomPerm from './self-perm.vue';
 import CustomSelect from './self-select.vue';
+import CustomAddressCity from './self-address-city.vue';
 
 let components = [
   CustomDict,
@@ -21,7 +22,8 @@ let components = [
   CustomPermRole,
   CustomPerm,
   CustomSearch,
-  CustomSelect
+  CustomSelect,
+  CustomAddressCity
 ];
 
 const install = function(Vue) {

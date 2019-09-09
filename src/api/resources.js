@@ -1,4 +1,4 @@
-import api from '@/utils/api'
+import api from '@/utils/api';
 
 /**
  * create vue-resource's resource like object
@@ -32,6 +32,10 @@ function resource(path, http, actions) {
   };
   return Object.assign(obj, actions);
 }
+
+export const AddLogger = (tLogger) => {
+  api.post('/api/logger', JSON.parse(JSON.stringify(tLogger)));
+};
 export const UserInfo = resource('/user/account', api, {
   getById: id => {
     return api.get('/api/user/account/' + id);
@@ -141,3 +145,4 @@ export const PHOTO = resource('/api/photo', api, {
     return api.get('/api/photo/query/pager', {params});
   }
 });
+export const SCHEDULE = resource('/api/schedule', api, {});

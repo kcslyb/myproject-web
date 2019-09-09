@@ -4,8 +4,7 @@
       <el-collapse-item name="1">
         <template slot="title">
           <div style="width: 100%; text-align: right">
-            <div>搜索开关<i class="el-icon-search"></i>
-            </div>
+            <div>搜索开关<i class="el-icon-search"></i></div>
           </div>
         </template>
         <div style="width: 70%; text-align: center">
@@ -57,26 +56,30 @@
         :height="accountTableHeight"
         @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="55"></el-table-column>
-        <el-table-column prop="accountTitle" label="标题" width="120"> </el-table-column>
+        <el-table-column label="创建人" prop="accountCreatby" show-overflow-tooltip width="100"></el-table-column>
+        <el-table-column label="标题" prop="accountTitle" width="200"></el-table-column>
         <el-table-column prop="accountDescript" label="内容描述" show-overflow-tooltip></el-table-column>
         <el-table-column prop="accountRemark" label="备注" show-overflow-tooltip> </el-table-column>
-        <el-table-column prop="accountCreatby" label="创建人" show-overflow-tooltip width="100"></el-table-column>
-        <el-table-column label="创建日期">
+        <el-table-column label="创建日期" width="180">
           <template slot-scope="scope">{{$dateFmt('yyyy-MM-dd hh:mm:ss', scope.row.accountCreattime)}}</template>
         </el-table-column>
         <el-table-column label="操作" width="100" align="center">
           <template slot-scope="scope">
-            <div>
-              <el-tooltip class="item" effect="dark" content="编辑" placement="top">
-                <el-button size="mini" type="warning" icon="el-icon-edit" circle @click="editAccount(scope.row)"></el-button>
-              </el-tooltip>
-              <el-tooltip class="item" effect="dark" content="删除" placement="top">
-                <el-button size="mini" type="danger" icon="el-icon-delete" circle @click="deleteAccount(scope.row)"></el-button>
-              </el-tooltip>
-            </div>
+            <custom-perm label="">
+              <div>
+                <el-tooltip class="item" content="编辑" effect="dark" placement="top">
+                  <el-button @click="editAccount(scope.row)" circle icon="el-icon-edit" size="mini"
+                             type="warning"></el-button>
+                </el-tooltip>
+                <el-tooltip class="item" content="删除" effect="dark" placement="top">
+                  <el-button @click="deleteAccount(scope.row)" circle icon="el-icon-delete" size="mini"
+                             type="danger"></el-button>
+                </el-tooltip>
+              </div>
+            </custom-perm>
           </template>
         </el-table-column>
-        <el-table-column prop="accountPrise" label="开消" show-overflow-tooltip width="60"> </el-table-column>
+        <el-table-column label="开消" prop="accountPrise" show-overflow-tooltip width="80"></el-table-column>
       </el-table>
     </div>
     <pager-right v-show="showRight" @rightClose="rightClose">
@@ -89,20 +92,23 @@
 </template>
 
 <script>
-  import {account} from '@/api/resources'
+  import {account} from '@/api/resources';
   import pageRight from '../common/self-pageright.vue';
   import accountForm from './form.vue';
   import accountInfo from './info.vue';
+  import CustomPerm from '../common/self-perm';
+
   export default {
     name: 'index',
     components: {
+      CustomPerm,
       pagerRight: pageRight,
       accountForm: accountForm,
       accountInfo: accountInfo
     },
     data() {
       return {
-        activeName: '1',
+        activeName: '0',
         showRight: false,
         showRightInfo: false,
         accountList: [],

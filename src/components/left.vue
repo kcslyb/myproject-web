@@ -28,9 +28,9 @@ export default {
       alert(this.routers)
       // this.routers = this.$router.options.routers
       this.routers.forEach(rout => {
-        console.log(rout.name)
-        console.log(rout.path)
-        console.log(rout.children)
+        // console.log(rout.name)
+        // console.log(rout.path)
+        // console.log(rout.children)
       })
     }
   },

@@ -48,10 +48,11 @@
 </template>
 
 <script>
-  import {RolePermission} from '@/api/resources'
+  import {RolePermission} from '@/api/resources';
   import permission from './permission';
   import pageRight from '../../common/self-pageright';
   import Perm from '../../common/self-perm';
+
   export default {
     components: {
       Perm,
@@ -193,13 +194,13 @@
         return requestTree;
       },
       addRole() {
-        console.log('add');
+        // console.log('add');
       },
       editRole() {
-        console.log('edit');
+        // console.log('edit');
       },
       deleteRole() {
-        console.log('delete');
+        // console.log('delete');
       },
       addDepartment() {
         this.action = 'add';

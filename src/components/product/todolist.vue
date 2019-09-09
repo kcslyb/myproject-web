@@ -89,11 +89,11 @@
 </template>
 
 <script>
-import {Product} from '../../api/resources';
-import pageRight from '../common/self-pageright.vue'
-import selfTag from './productlist.vue'
+  import {Product} from '../../api/resources';
+  import pageRight from '../common/self-pageright.vue';
+  import selfTag from './productlist.vue';
 
-export default {
+  export default {
   name: 'todolist',
   components: {
     pageRight: pageRight,
@@ -104,7 +104,7 @@ export default {
       loading: false,
       pageIsShow: false,
       musicIsShow: false,
-      defaultHeight: window.innerHeight - 240,
+      defaultHeight: window.innerHeight - 280,
       centerDialogVisible: false,
       activeName: '1',
       sumNumb: 0,

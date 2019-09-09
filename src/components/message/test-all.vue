@@ -18,19 +18,25 @@
   <div>
     <el-button @click="show = !show" size="small">custom-drawer</el-button>
   </div>
+  <div>
+    <el-button @click="writeData">write</el-button>
+  </div>
   <custom-drawer :defaultWith="true" :show.sync="show" @right-close="close">
     <custom-feedback size="small" :length="20" v-model="inputText" placeholder="自定义输入组件"></custom-feedback>
-    <span>{{inputText}}</span><el-button @click="prShow = !prShow">{{prShow ? 'notShow' : 'show'}}</el-button>
-    <img v-if="prShow" style="position: absolute; width: 100px; height: 100px;" src="http://qr.liantu.com/api.php?text=789079797"/>
+    <span>{{inputText}}</span>
+    <el-button @click="downloadQr">生成二维码</el-button>
+    <custom-address-city v-model="addressValue"></custom-address-city>
+    <span>{{addressValue}}</span>
   </custom-drawer>
 </div>
 </template>
 
 <script>
 
-import {debounce, throttle} from '@/utils/util'
+  import {debounce, throttle} from '@/utils/util';
+  import {writeJson} from '@/utils/fileutil';
 
-export default {
+  export default {
   name: 'socket',
   data() {
     return {
@@ -47,10 +53,9 @@ export default {
       strokeWidth2: 0,
       percentage2: 0,
       strokeWidth3: 0,
-      percentage3: 0
+      percentage3: 0,
+      addressValue: ''
     }
-  },
-  mounted() {
   },
   created() {
   },
@@ -71,6 +76,29 @@ export default {
     },
     close() {
       this.show = false;
+    },
+    downloadQr() {
+      this.download('/api/file/info?text=' + this.inputText + '&fileName=' + this.inputText, 'fileName');
+    },
+    download(src, fileName) {
+      let $a = document.createElement('a');
+      $a.setAttribute('href', src);
+      $a.setAttribute('download', fileName);
+      let fileLink = document.createElement('span');
+      fileLink.setAttribute('style', 'cursor: pointer; -webkit-tap-highlight-color: transparent');
+      $a.appendChild(fileLink);
+      let body = document.getElementsByTagName('body')[0];
+      body.appendChild($a);
+      fileLink.click();
+      body.removeChild($a);
+    },
+    writeData() {
+      let params = {
+        id: '123456',
+        path: '12343454545',
+        value: 'value'
+      };
+      writeJson(params, '/Users/kcs/Desktop/json.json');
     }
   }
 };

@@ -2,7 +2,7 @@
 
 /**
  * 防抖函数
- * @param func 用户传入的函数
+ * @param func 传入的函数
  * @param wait 等待的时间
  * @param immediate 是否立即执行
  * @return {Function}
@@ -14,7 +14,9 @@ const debounce = function (func,wait = 3000,immediate = false) {
   // 这里返回的函数是每次用户实际调用的防抖函数
   return function(...args){
     // 如果已经设定过定时器了就清空上一次的定时器
-    if(timer) clearTimeout(timer);
+    if (timer) {
+      clearTimeout(timer);
+    }
     if(immediate){
       let callNow = !timer;
       //等待wait的时间间隔后，timer为null的时候，函数才可以继续执行
@@ -36,7 +38,7 @@ const debounce = function (func,wait = 3000,immediate = false) {
 
 /**
  * 截流函数
- * @param func 用户传入的函数
+ * @param func 传入的函数
  * @param wait 等待的时间
  * @returns {Function}
  */
@@ -58,6 +60,49 @@ const throttle = function(func, wait = 3000) {
       func.apply(that,_args)
     }
   }
+};
+
+/**
+ * 文件下载 默认文件名
+ * @param url 文件路径
+ */
+const fielDownload = function (url) {
+  let $a = document.createElement('a');
+  $a.setAttribute('href', url);
+  let fileLink = document.createElement('span');
+  fileLink.setAttribute('style', 'cursor: pointer; -webkit-tap-highlight-color: transparent');
+  $a.appendChild(fileLink);
+  let body = document.getElementsByTagName('body')[0];
+  body.appendChild($a);
+  fileLink.click();
+  body.removeChild($a);
+};
+
+/**
+ * 文件下载可改文件名
+ * @param url
+ * @param fileName
+ * @return {Promise<any | never>}
+ */
+const fieldDownload = function (url, fileName) {
+  return new Promise((resolve, reject) => {
+    let xhr = new XMLHttpRequest();
+    xhr.responseType = 'blob';
+    xhr.onload = () => {
+      resolve(xhr);
+    };
+    xhr.onerror = reject;
+    xhr.open('GET', url);
+    xhr.send();
+  }).then((xhr) => {
+    let a = document.createElement('a');
+    a.href = window.URL.createObjectURL(xhr.response); // xhr.response is a blob
+    a.download = fileName; // Set the file name.
+    a.style.display = 'none';
+    document.body.appendChild(a);
+    a.click();
+    return xhr;
+  });
 };
 
 /**
@@ -89,5 +134,6 @@ export {
   debounce,
   throttle,
   randomColor,
+  fieldDownload,
   random
 }

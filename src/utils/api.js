@@ -1,7 +1,7 @@
-import axios from 'axios'
-import {Message} from 'element-ui'
-import store from '../store'
-import {aesEncrypt, aesDecrypt}from '../utils/encryption'
+import axios from 'axios';
+import {Message} from 'element-ui';
+import store from '../store';
+import {aesDecrypt, aesEncrypt} from '../utils/encryption';
 // 创建axios实例
 const service = axios.create({
   baseURL: process.env.BASE_URL, // api的base_url
@@ -9,6 +9,10 @@ const service = axios.create({
 });
 // request拦截器
 service.interceptors.request.use(config => {
+  let logger = {
+    logUrl: config.url
+  };
+  // axios.post('/api/logger',Object.assign({}, logger, store.app.logger));
   // 对请求方式为post，put的请求进行加密
   if (config.method === 'post' || config.method === 'put') {
     config.data = aesEncrypt(JSON.stringify(config.data));

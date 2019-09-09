@@ -1,30 +1,30 @@
-import Vue from 'vue'
+import Vue from 'vue';
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
-import App from './App'
-import VueResource from 'vue-resource'
-import router from './router/routers'
-import store from './store'
-import api from './utils/api'
+import App from './App';
+import VueResource from 'vue-resource';
+import router from './router/routers';
+import store from './store';
+import api from './utils/api';
 import {socketUtil} from './utils/socket';
-import '@/permission' // 权限
-import moment from "moment";
-
-import {dateFmt, currentDate} from './utils/data-utils'
-import {screenWith, screenHeight} from './utils/screenUtill'
-import { DataDict } from './api/resources';
-
+import '@/permission'; // 权限
+import moment from 'moment';
+import {currentDate, dateFmt} from './utils/date-utils';
+import {screenHeight, screenWith} from './utils/screenUtill';
+import {DataDict} from './api/resources';
+import fs from 'fs';
 // 引入自定义组件
 import customComponent from './components/common/custom';
-Vue.use(customComponent);
-
 // 引入echarts
-import echarts from 'echarts'
+import echarts from 'echarts';
+
+Vue.use(customComponent);
 
 Vue.use(ElementUI);
 Vue.use(VueResource);
 
 // 全局的常量
+Vue.prototype.$fs = fs;
 Vue.prototype.$echarts = echarts;
 Vue.prototype.$socket = socketUtil;
 Vue.prototype.$api = api;

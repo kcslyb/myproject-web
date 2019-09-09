@@ -33,7 +33,7 @@
     <div v-loading="loading" v-show="showTable">
       <el-table :data="orderList" align="center" :height="defaultHeight" @row-click="searchOrder">
         <el-table-column type="index" label="编号" width="50" :index="indexMethod" align="center"></el-table-column>
-        <el-table-column prop="orderSerialNumber" label="唯一标识">
+        <el-table-column label="唯一标识" prop="orderSerialNumber" width="200">
           <template slot-scope="scope">
             <el-tag size="mini" type="primary">{{scope.row.orderProductSize}}</el-tag>
             <span>{{scope.row.orderSerialNumber}}</span>
@@ -42,20 +42,20 @@
             <el-tag size="mini" type="success" v-show="scope.row.orderStatus === '2'">完成</el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="orderCustomerName" label="创建者">
+        <el-table-column label="创建者" prop="orderCustomerName" width="100">
           <template slot-scope="scope">
             <span>{{scope.row.orderCustomerName}}</span>
             <el-tag size="mini" type="primary" v-show="scope.row.orderType === '1'">派送单</el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="orderNumber" label="流水"></el-table-column>
+        <el-table-column label="流水" prop="orderNumber" width="100"></el-table-column>
         <el-table-column prop="orderCreateTime" label="创建时间" :formatter="getNumber"></el-table-column>
         <el-table-column label="位置">
           <template slot-scope="scope">
             <el-badge v-if="scope.row.orderType === '0'" :value="scope.row.desk.deskCapacity" class="item" type="primary" style="margin-top: 10px">
               <span >{{scope.row.desk.deskName + '-' + scope.row.desk.deskSerialNumber}}</span>
             </el-badge>
-            <span v-else>派送地址：{{scope.row.address.addressDetail}}</span>
+            <span v-else>派送地址：{{scope.row.address.addressName + scope.row.address.addressDetail}}</span>
           </template>
         </el-table-column>
         <el-table-column label="操作" width="100" align="center">
@@ -121,9 +121,10 @@
 
 <script>
 
-  import {Order, Desk} from '@/api/resources'
-  import pageRight from '../common/self-pageright.vue'
-  import orderDto from '../order/order.vue'
+  import {Desk, Order} from '@/api/resources';
+  import pageRight from '../common/self-pageright.vue';
+  import orderDto from '../order/order.vue';
+
   export default {
     name: 'orderlist',
     data () {

@@ -54,6 +54,7 @@
         this.$router.go(-1)
       },
       getPathType() {
+
         this.$getDictionaryByGroup('interfaceType').then((res) => {
           this.pathTypes = res;
           if (this.pathTypes.length > 0) {

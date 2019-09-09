@@ -9,7 +9,7 @@
 
 <script>
   export default {
-    name: 'self-select',
+    name: 'CustomSelect',
     props: {
       placeholder: {
         type: String,
@@ -30,7 +30,7 @@
     },
     methods: {
       onchange(res) {
-        console.info(res)
+        // console.info(res)
       }
     }
   };

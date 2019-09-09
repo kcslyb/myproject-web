@@ -4,8 +4,8 @@
     <el-header><h3>添加地址</h3></el-header>
   </div>
   <el-form :model="address" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-    <el-form-item label="地址名称" prop="addressName">
-      <el-input v-model="address.addressName"></el-input>
+    <el-form-item label="地址" prop="addressName">
+      <custom-address-city v-model="address.addressName" width="100%"></custom-address-city>
     </el-form-item>
     <el-form-item label="详细地址" prop="addressDetail">
       <el-input v-model="address.addressDetail"></el-input>
@@ -36,21 +36,32 @@
         rules: {
           addressName: [
             {required: true, message: '请输地址名称', trigger: 'blur'},
-            {min: 3, max: 10, message: '长度在 3 到 10 个字符', trigger: 'blur'}
+            {min: 3, max: 30, message: '长度在 3 到 30 个字符', trigger: 'blur'}
           ],
           addressDetail: [
             {required: true, message: '请输入详细地址', trigger: 'change'},
-            {min: 5, max: 20, message: '长度在 5 到 20 个字符', trigger: 'blur'}
+            {min: 5, max: 30, message: '长度在 5 到 30 个字符', trigger: 'blur'}
           ],
         }
       }
     },
     methods: {
       commit() {
-        Address.save(JSON.parse(JSON.stringify(this.address))).then(res => {
-          this.resultAddress = res;
-          this.$emit('closeAddress', this.resultAddress);
-        })
+        this.$refs['ruleForm'].validate((valid) => {
+          if (valid) {
+            Address.save(JSON.parse(JSON.stringify(this.address))).then(res => {
+              this.resultAddress = res;
+              this.$emit('closeAddress', this.resultAddress);
+            });
+          } else {
+            this.$notify({
+              type: 'info',
+              title: '提示！',
+              message: '请正确填写完整地址信息'
+            });
+            return false;
+          }
+        });
       },
       close() {
         this.$emit('closeAddress', this.resultAddress);

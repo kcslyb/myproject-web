@@ -9,7 +9,7 @@
           <el-col :span="2">
             <div class="grid-content">
               <div>
-                <img width="auto" height="50px" src="../../static/121.png"/>
+<!--                <img width="auto" height="50px" src="../../static/121.png"/>-->
               </div>
             </div>
           </el-col>

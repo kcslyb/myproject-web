@@ -10,7 +10,7 @@
                   <el-row :gutter="24">
                     <el-col :span="5">
                       <div>
-                        <img src="../../../static/9999.jpg" style="width: 200px; height: 200px;">
+<!--                        <img src="../../../static/9999.jpg" style="width: 200px; height: 200px;">-->
                       </div>
                     </el-col>
                     <el-col :span="8">
